@@ -1,0 +1,3 @@
+[submodule "interviewr-server"]
+	path = interviewr-server
+	url = https://github.com/interviewr/interviewr-server.git

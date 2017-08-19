@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+  interviewr-server:
+    build:
+      context: ./interviewr-server
+      dockerfile: Dockerfile
+    volumes:
+      - ./interviewr-server/src:/app/src
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo
+  web:
+    image: nginx:1.13
+    ports:
+      - "8080:80"
+    volumes:
+      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    links:
+      - interviewr-server
+  mongo:
+    command: mongod
+    image: mongo:3.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    logging:
+      driver: none
