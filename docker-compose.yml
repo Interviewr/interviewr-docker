@@ -4,7 +4,7 @@ services:
   interviewr-server:
     build:
       context: ./interviewr-server
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
       - ./interviewr-server/src:/app/src
     ports:
@@ -19,6 +19,7 @@ services:
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     links:
       - interviewr-server
+      - swagger-ui
   mongo:
     command: mongod
     image: mongo:3.4
@@ -28,3 +29,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     logging:
       driver: none
+  swagger-ui:
+    image: swaggerapi/swagger-ui:latest
+    ports:
+      - "8082:8082"
