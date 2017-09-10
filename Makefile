@@ -7,5 +7,5 @@ WORKDIR := $(PWD)
 
 start:
 	@ echo "--> Starting environment ..."
-	@ docker-compose up --build "$@"
+	@ docker-compose up --build
 .PHONY: start
