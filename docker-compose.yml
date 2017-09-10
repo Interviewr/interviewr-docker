@@ -1,24 +1,26 @@
-version: '2'
-
+version: '2.0'
 services:
   interviewr-server:
     build:
       context: ./interviewr-server
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+    working_dir: /go/src/interviewr-server
+    command: go run ./src/main.go
     volumes:
-      - ./interviewr-server/src:/app/src
+      - ./interviewr-server:/go/src/interviewr-server:ro
     ports:
-      - "8081:8081"
+      - "8090:8090"
     depends_on:
       - mongo
   web:
     image: nginx:1.13
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     links:
       - interviewr-server
+      - swagger-ui
   mongo:
     command: mongod
     image: mongo:3.4
@@ -28,3 +30,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     logging:
       driver: none
+  swagger-ui:
+    image: swaggerapi/swagger-ui:latest
+    ports:
+      - "8082:8080"
