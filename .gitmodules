@@ -2,3 +2,11 @@
 	path = interviewr-server
 	url = https://github.com/interviewr/interviewr-server.git
 	branch = develop
+[submodule "fugee-signaling"]
+	path = fugee-signaling
+	url = https://github.com/interviewr/fugee-signaling.git
+	branch = develop
+[submodule "fugee"]
+	path = fugee
+	url = https://github.com/interviewr/fugee.git
+	branch = develop
