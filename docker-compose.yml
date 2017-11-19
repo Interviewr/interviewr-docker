@@ -4,14 +4,14 @@ services:
     build:
       context: ./interviewr-server
       dockerfile: Dockerfile.dev
-    working_dir: /go/src/interviewr-server
-    command: go run ./src/main.go
+    working_dir: /go/src/github.com/interviewr/interviewr-server
+    command: go run ./cmd/interviewr-server/main.go
     volumes:
-      - ./interviewr-server:/go/src/interviewr-server:ro
+      - ./interviewr-server:/go/src/github.com/interviewr/interviewr-server:ro
     ports:
       - "8090:8090"
     depends_on:
-      - mongo
+      - postgres
   fugee-signaling:
     build:
       context: ./fugee-signaling
@@ -40,15 +40,15 @@ services:
       - interviewr-server
       - fugee-signaling
       - swagger-ui
-  mongo:
-    command: mongod
-    image: mongo:3.4
+  postgres:
+    image: postgres:9.6
+    restart: always
     ports:
-      - "27017:27017"
+      - "5432:5432"
+    env_file:
+      - ./conf/postgres/postgres.env
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    logging:
-      driver: none
+      - ./var/data/postgres/data:/var/lib/postgresql/data
   swagger-ui:
     image: swaggerapi/swagger-ui:latest
     ports:
