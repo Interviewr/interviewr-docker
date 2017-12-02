@@ -37,6 +37,7 @@ services:
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./conf/nginx/server.crt:/etc/nginx/ssl/server.crt:ro
       - ./conf/nginx/server.key:/etc/nginx/ssl/server.key:ro
+      - ./api-contracts:/swagger:ro
       - ./fugee/build:/fugee:ro
     links:
       - interviewr-server
@@ -58,3 +59,5 @@ services:
     image: swaggerapi/swagger-ui:latest
     ports:
       - "8082:8080"
+    env_file:
+      - ./conf/swagger/swagger.env
