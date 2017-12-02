@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile.dev
     working_dir: /go/src/github.com/interviewr/interviewr-server
     command: go run ./cmd/interviewr-server/main.go
+    links:
+      - postgres:db
     volumes:
       - ./interviewr-server:/go/src/github.com/interviewr/interviewr-server:ro
     ports:
@@ -42,13 +44,16 @@ services:
       - swagger-ui
   postgres:
     image: postgres:9.6
-    restart: always
     ports:
       - "5432:5432"
     env_file:
       - ./conf/postgres/postgres.env
     volumes:
       - ./var/data/postgres/data:/var/lib/postgresql/data
+  adminer:
+    image: adminer
+    ports:
+      - "5450:8080"
   swagger-ui:
     image: swaggerapi/swagger-ui:latest
     ports:
