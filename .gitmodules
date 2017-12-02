@@ -10,3 +10,7 @@
 	path = fugee
 	url = https://github.com/interviewr/fugee.git
 	branch = develop
+[submodule "api-contracts"]
+	path = api-contracts
+	url = https://github.com/interviewr/api-contracts.git
+	branch = develop
