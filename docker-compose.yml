@@ -43,6 +43,7 @@ services:
       - interviewr-server
       - fugee-signaling
       - swagger-ui
+      - adminer
   postgres:
     image: postgres:9.6
     ports:
